@@ -35,6 +35,11 @@
             50% { transform: scale(1.1); }
             100% { transform: scale(1); }
         }
+        /* Loading Bar Animation */
+        #progress-fill {
+            width: 0%;
+            transition: width 30s linear;
+        }
     </style>
 </head>
 <body class="gradient-bg min-h-screen flex items-center justify-center font-sans overflow-x-hidden">
@@ -42,9 +47,17 @@
     <div id="section-1" class="text-center p-8 fade-in">
         <h1 class="text-3xl md:text-4xl font-light text-pink-600 mb-2 italic">It's February and I have only 1 question for you...</h1>
         <p class="text-pink-400 mb-8 font-medium">Though I will still ask every year.</p>
-        <button onclick="showSection(2)" class="bg-pink-500 hover:bg-pink-600 text-white px-8 py-3 rounded-full shadow-lg transition-transform transform hover:scale-105">
+        <button onclick="startLoading()" class="bg-pink-500 hover:bg-pink-600 text-white px-8 py-3 rounded-full shadow-lg transition-transform transform hover:scale-105">
             Click to find out
         </button>
+    </div>
+
+    <div id="section-loading" class="hidden text-center p-8 w-full max-w-md fade-in">
+        <h2 id="loading-text" class="text-pink-500 font-semibold mb-4 italic">Calculating the importance of this question...</h2>
+        <div class="w-full bg-pink-100 rounded-full h-4 shadow-inner overflow-hidden">
+            <div id="progress-fill" class="bg-pink-500 h-full rounded-full"></div>
+        </div>
+        <p class="text-pink-300 text-xs mt-4 uppercase tracking-widest">Please wait while we process your answer...</p>
     </div>
 
     <div id="section-2" class="hidden text-center p-8 relative w-full h-screen flex flex-col items-center justify-center fade-in">
@@ -105,15 +118,38 @@
 
     <script>
         function showSection(num) {
-            document.getElementById('section-1').classList.add('hidden');
-            document.getElementById('section-2').classList.add('hidden');
-            document.getElementById('section-3').classList.add('hidden');
-            document.getElementById('section-' + num).classList.remove('hidden');
+            const sections = ['section-1', 'section-loading', 'section-2', 'section-3'];
+            sections.forEach(id => document.getElementById(id).classList.add('hidden'));
+            
+            let targetId = num === 1.5 ? 'section-loading' : 'section-' + num;
+            document.getElementById(targetId).classList.remove('hidden');
 
             const noBtn = document.getElementById('no-btn');
             if(num === 2) {
                 noBtn.style.position = 'static'; 
             }
+        }
+
+        function startLoading() {
+            showSection(1.5);
+            const fill = document.getElementById('progress-fill');
+            const text = document.getElementById('loading-text');
+            
+            // Start the 30s transition
+            setTimeout(() => {
+                fill.style.width = '100%';
+            }, 100);
+
+            // Change text halfway through
+            setTimeout(() => {
+                text.innerText = "Finalizing the details of our future together...";
+            }, 15000);
+
+            // Move to Section 2 after 30 seconds
+            setTimeout(() => {
+                showSection(2);
+                fill.style.width = '0%'; // Reset for next time
+            }, 30100);
         }
 
         function handleYes() {
