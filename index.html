@@ -37,7 +37,7 @@
         }
         #progress-fill {
             width: 0%;
-            transition: width 30s linear;
+            transition: width 15s linear;
         }
     </style>
 </head>
@@ -110,6 +110,7 @@
             <div class="flex flex-wrap gap-2">
                 <span class="bg-white px-3 py-1 rounded-full text-xs shadow-sm border border-gray-100 font-medium">🔥 KBBQ Night</span>
                 <span class="bg-white px-3 py-1 rounded-full text-xs shadow-sm border border-gray-100 font-medium">🍷 Quiet Drinks</span>
+                <span class="bg-white px-3 py-1 rounded-full text-xs shadow-sm border border-gray-100 font-medium">🏠 At Home and Chill</span>
             </div>
         </div>
 
@@ -144,12 +145,12 @@
 
             setTimeout(() => {
                 text.innerText = "Finalizing the details of our future together...";
-            }, 15000);
+            }, 7500);
 
             setTimeout(() => {
                 showSection(2);
                 fill.style.width = '0%';
-            }, 30100);
+            }, 15100);
         }
 
         function handleYes() {
