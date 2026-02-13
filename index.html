@@ -35,7 +35,6 @@
             50% { transform: scale(1.1); }
             100% { transform: scale(1); }
         }
-        /* Loading Bar Animation */
         #progress-fill {
             width: 0%;
             transition: width 30s linear;
@@ -54,10 +53,10 @@
 
     <div id="section-loading" class="hidden text-center p-8 w-full max-w-md fade-in">
         <h2 id="loading-text" class="text-pink-500 font-semibold mb-4 italic">Calculating the importance of this question...</h2>
-        <div class="w-full bg-pink-100 rounded-full h-4 shadow-inner overflow-hidden">
+        <div class="w-full bg-pink-100 rounded-full h-4 shadow-inner overflow-hidden border border-pink-200">
             <div id="progress-fill" class="bg-pink-500 h-full rounded-full"></div>
         </div>
-        <p class="text-pink-300 text-xs mt-4 uppercase tracking-widest">Please wait while we process your answer...</p>
+        <p class="text-pink-300 text-xs mt-4 uppercase tracking-widest">Please wait while we process your question...</p>
     </div>
 
     <div id="section-2" class="hidden text-center p-8 relative w-full h-screen flex flex-col items-center justify-center fade-in">
@@ -71,7 +70,7 @@
             </svg>
         </div>
 
-        <h1 class="text-4xl md:text-6xl font-bold text-pink-600 mb-12 drop-shadow-sm">Will you be my Valentine? ❤️</h1>
+        <h1 class="text-4xl md:text-6xl font-bold text-pink-600 mb-12 drop-shadow-sm px-4">Will you be my Valentine? ❤️</h1>
         
         <div class="flex gap-6 items-center justify-center min-h-[100px]">
             <button onclick="handleYes()" class="bg-green-500 hover:bg-green-600 text-white px-10 py-4 rounded-xl text-xl shadow-lg z-10 transition-transform active:scale-95">
@@ -105,14 +104,18 @@
             </div>
         </div>
 
-        <div class="glass-card rounded-2xl p-4 shadow-md text-left border-t-4 border-pink-400">
+        <div class="glass-card rounded-2xl p-4 shadow-md text-left border-t-4 border-pink-400 mb-6">
             <p class="text-sm font-bold text-pink-600 uppercase tracking-widest mb-2">Change of plans?</p>
             <p class="text-gray-600 text-sm mb-3">If you're feeling a different vibe, we can pivot to:</p>
             <div class="flex flex-wrap gap-2">
-                <span class="bg-white px-3 py-1 rounded-full text-xs shadow-sm border border-gray-100">🔥 KBBQ Night</span>
-                <span class="bg-white px-3 py-1 rounded-full text-xs shadow-sm border border-gray-100">🍷 Quiet Drinks</span>
-                <span class="bg-white px-3 py-1 rounded-full text-xs shadow-sm border border-gray-100">💬 Let's Discuss!</span>
+                <span class="bg-white px-3 py-1 rounded-full text-xs shadow-sm border border-gray-100 font-medium">🔥 KBBQ Night</span>
+                <span class="bg-white px-3 py-1 rounded-full text-xs shadow-sm border border-gray-100 font-medium">🍷 Quiet Drinks</span>
             </div>
+        </div>
+
+        <div class="space-y-4">
+            <p class="text-gray-700 italic font-medium">...or we can just discuss and decide together!</p>
+            <p class="text-pink-600 text-lg font-bold drop-shadow-sm pt-2">I can't wait to spend Valentine's Day with you. ❤️</p>
         </div>
     </div>
 
@@ -135,20 +138,17 @@
             const fill = document.getElementById('progress-fill');
             const text = document.getElementById('loading-text');
             
-            // Start the 30s transition
             setTimeout(() => {
                 fill.style.width = '100%';
             }, 100);
 
-            // Change text halfway through
             setTimeout(() => {
                 text.innerText = "Finalizing the details of our future together...";
             }, 15000);
 
-            // Move to Section 2 after 30 seconds
             setTimeout(() => {
                 showSection(2);
-                fill.style.width = '0%'; // Reset for next time
+                fill.style.width = '0%';
             }, 30100);
         }
 
