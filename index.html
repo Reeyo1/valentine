@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>A Special Question</title>
+    <title>To My Forever Valentine</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <style>
         .gradient-bg {
             background: linear-gradient(135deg, #fce7f3 0%, #fbcfe8 100%);
@@ -12,45 +13,92 @@
         #no-btn {
             transition: all 0.2s ease;
             position: absolute;
+            white-space: nowrap;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .heart-pulse {
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
         }
     </style>
 </head>
-<body class="gradient-bg min-h-screen flex items-center justify-center font-sans overflow-hidden">
+<body class="gradient-bg min-h-screen flex items-center justify-center font-sans overflow-x-hidden">
 
-    <div id="section-1" class="text-center p-8">
-        <h1 class="text-3xl md:text-4xl font-light text-pink-600 mb-8">It's February and I have only 1 question for you...</h1>
+    <div id="section-1" class="text-center p-8 fade-in">
+        <h1 class="text-3xl md:text-4xl font-light text-pink-600 mb-2 italic">It's February and I have only 1 question for you...</h1>
+        <p class="text-pink-400 mb-8 font-medium">Though I will still ask every year.</p>
         <button onclick="showSection(2)" class="bg-pink-500 hover:bg-pink-600 text-white px-8 py-3 rounded-full shadow-lg transition-transform transform hover:scale-105">
             Click to find out
         </button>
     </div>
 
-    <div id="section-2" class="hidden text-center p-8 relative w-full h-screen flex flex-col items-center justify-center">
-        <h1 class="text-4xl md:text-6xl font-bold text-pink-600 mb-12">Will you be my Valentine? ❤️</h1>
+    <div id="section-2" class="hidden text-center p-8 relative w-full h-screen flex flex-col items-center justify-center fade-in">
+        <button onclick="showSection(1)" class="absolute top-8 left-8 text-pink-400 hover:text-pink-600 flex items-center transition-colors">
+            ← Back
+        </button>
         
-        <div class="flex gap-6 items-center justify-center">
-            <button onclick="showSection(3)" class="bg-green-500 hover:bg-green-600 text-white px-10 py-4 rounded-xl text-xl shadow-lg z-10">
+        <div class="heart-pulse mb-6">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="#ef4444" viewBox="0 0 24 24" stroke-width="1.5" stroke="none" class="w-32 h-32 md:w-48 md:h-48 drop-shadow-xl">
+                <path d="M11.645 20.91l-.007-.003-.022-.012a15.247 15.247 0 01-.383-.218 25.18 25.18 0 01-4.244-3.17C4.688 15.36 2.25 12.174 2.25 8.25 2.25 5.322 4.714 3 7.688 3c1.54 0 3.04.588 4.312 1.611L12 5.511l.24-.22C13.518 4.258 15.018 3 16.56 3c2.974 0 5.438 2.322 5.438 5.25 0 3.924-2.438 7.11-4.74 9.303a25.15 25.15 0 01-4.244 3.17 15.247 15.247 0 01-.383.219l-.022.012-.007.004-.003.001a.752.752 0 01-.704 0l-.003-.001z" />
+            </svg>
+        </div>
+
+        <h1 class="text-4xl md:text-6xl font-bold text-pink-600 mb-12 drop-shadow-sm">Will you be my Valentine? ❤️</h1>
+        
+        <div class="flex gap-6 items-center justify-center min-h-[100px]">
+            <button onclick="handleYes()" class="bg-green-500 hover:bg-green-600 text-white px-10 py-4 rounded-xl text-xl shadow-lg z-10 transition-transform active:scale-95">
                 YES
             </button>
-            
-            <button id="no-btn" class="bg-gray-400 text-white px-10 py-4 rounded-xl text-xl shadow-lg">
+            <button id="no-btn" class="bg-gray-400 text-white px-10 py-4 rounded-xl text-xl shadow-lg touch-none">
                 No
             </button>
         </div>
     </div>
 
-    <div id="section-3" class="hidden text-center p-8 max-w-2xl">
-        <h1 class="text-4xl font-bold text-pink-600 mb-4">Yay! I knew you'd say yes! 🥰</h1>
-        <p class="text-gray-700 mb-8 text-lg">Here is what I have planned for our day:</p>
+    <div id="section-3" class="hidden text-center p-6 max-w-xl w-full fade-in">
+        <div class="flex justify-start mb-4">
+            <button onclick="showSection(2)" class="text-pink-400 hover:text-pink-600 flex items-center transition-colors">
+                ← Back
+            </button>
+        </div>
+
+        <h1 class="text-4xl font-bold text-pink-600 mb-1">Yay! 🥰</h1>
+        <p class="text-pink-500 font-semibold italic mb-6">To my forever valentine</p>
         
-        <div class="bg-white rounded-3xl p-6 shadow-xl text-left border border-pink-100">
-            <ul class="space-y-4 text-gray-600">
-                <li class="flex items-center">📍 <span class="ml-2 font-semibold text-gray-800 underline"><a href="#">View Venue Location</a></span></li>
-                <li class="flex items-center">⏰ <span>Starting at 6:30 PM</span></li>
-                <li class="flex items-center">✨ <span>A night of [Your Itinerary Detail]</span></li>
-            </ul>
-            
-            <div class="mt-6 rounded-xl overflow-hidden bg-pink-50 h-48 flex items-center justify-center italic text-pink-300">
-                [Insert Video or Image Here]
+        <div class="glass-card rounded-3xl p-6 shadow-xl text-left mb-6">
+            <h2 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
+                🎳 Our Plan
+            </h2>
+            <div class="space-y-4 text-gray-600">
+                <p>We're heading to <span class="font-bold text-pink-500">Kingpin Melbourne</span> for some fun and games!</p>
+                <a href="https://www.kingpinplay.com/en-au/venues/vic/melbourne/" target="_blank" class="inline-block bg-pink-100 text-pink-600 px-4 py-2 rounded-lg font-semibold hover:bg-pink-200 transition-colors">
+                    View Venue & Location →
+                </a>
+            </div>
+        </div>
+
+        <div class="glass-card rounded-2xl p-4 shadow-md text-left border-t-4 border-pink-400">
+            <p class="text-sm font-bold text-pink-600 uppercase tracking-widest mb-2">Change of plans?</p>
+            <p class="text-gray-600 text-sm mb-3">If you're feeling a different vibe, we can pivot to:</p>
+            <div class="flex flex-wrap gap-2">
+                <span class="bg-white px-3 py-1 rounded-full text-xs shadow-sm border border-gray-100">🔥 KBBQ Night</span>
+                <span class="bg-white px-3 py-1 rounded-full text-xs shadow-sm border border-gray-100">🍷 Quiet Drinks</span>
+                <span class="bg-white px-3 py-1 rounded-full text-xs shadow-sm border border-gray-100">💬 Let's Discuss!</span>
             </div>
         </div>
     </div>
@@ -60,25 +108,39 @@
             document.getElementById('section-1').classList.add('hidden');
             document.getElementById('section-2').classList.add('hidden');
             document.getElementById('section-3').classList.add('hidden');
-            
             document.getElementById('section-' + num).classList.remove('hidden');
-            
-            // Reset "No" button position when entering section 2
+
+            const noBtn = document.getElementById('no-btn');
             if(num === 2) {
-                const noBtn = document.getElementById('no-btn');
-                noBtn.style.left = 'calc(50% + 60px)';
-                noBtn.style.top = 'calc(50% + 20px)';
+                noBtn.style.position = 'static'; 
             }
+        }
+
+        function handleYes() {
+            confetti({
+                particleCount: 150,
+                spread: 70,
+                origin: { y: 0.6 },
+                colors: ['#ff69b4', '#ff1493', '#ffffff']
+            });
+            showSection(3);
         }
 
         const noBtn = document.getElementById('no-btn');
 
-        noBtn.addEventListener('mouseover', () => {
+        const moveButton = () => {
+            noBtn.style.position = 'absolute';
             const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
             const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
             
-            noBtn.style.left = `${x}px`;
-            noBtn.style.top = `${y}px`;
+            noBtn.style.left = `${Math.max(10, Math.min(x, window.innerWidth - 110))}px`;
+            noBtn.style.top = `${Math.max(10, Math.min(y, window.innerHeight - 60))}px`;
+        };
+
+        noBtn.addEventListener('mouseover', moveButton);
+        noBtn.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            moveButton();
         });
     </script>
 </body>
